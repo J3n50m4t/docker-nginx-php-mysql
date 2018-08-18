@@ -18,7 +18,7 @@ services:
             - php
             - mysqldb
     php:
-        image: nanoninja/php-fpm:${PHP_VERSION}
+        image: 	tobi312/rpi-php:5.6-fpm
         restart: always
         volumes:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
@@ -29,10 +29,10 @@ services:
             - "./web/app:/app"
         command: install
     myadmin:
-        image: phpmyadmin/phpmyadmin
+        image: 	mt08/rpi-phpmyadmin
         container_name: phpmyadmin
         ports:
-            - "8080:80"
+            - "8880:80"
         environment:
             - PMA_ARBITRARY=1
             - PMA_HOST=${MYSQL_HOST}
@@ -40,7 +40,7 @@ services:
         depends_on:
             - mysqldb
     mysqldb:
-        image: mysql:${MYSQL_VERSION}
+        image: hypriot/rpi-mysql
         container_name: ${MYSQL_HOST}
         restart: always
         env_file:
